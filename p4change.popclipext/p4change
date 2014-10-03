@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use File::Temp qw(mkstemps);
+
+my $change = shift // $ENV{POPCLIP_TEXT};
+
+$ENV{HOME} = ( getpwuid($>) )[7];
+my $ticket = `head -1 $ENV{HOME}/.p4tickets`;
+# e.g. "host:1666=user:11E415A4365286D672A9091387C0CE54"
+my($host,$port,$user) = $ticket =~ /^([^:]+)(?::(\d+))?=([^:]+):/;
+$port //= 1666;
+
+chomp($ENV{TMPDIR} = `getconf DARWIN_USER_TEMP_DIR`);
+my $diff = "$ENV{TMPDIR}p4change.$change.html";
+system(qq(p4 -p $host:$port -u $user describe -du $change | pygmentize -l diff -f html -O full -o "$diff"));
+
+# simply once QL for *.diff files is working as expected
+#my $diff = "$ENV{TMPDIR}p4change.$change.diff";
+#system(qq(p4 -p $host:$port -u $user describe -du $change));
+
+my($fh,$plist) = mkstemps("$ENV{TMPDIR}qlmanage.XXXXXXXX", ".plist");
+print $fh <<PLIST;
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.jandubois.quicklook</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/bin/qlmanage</string>
+      <string>-p</string>
+      <string>$diff</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>LaunchOnlyOnce</key>
+    <true/>
+  </dict>
+</plist>
+PLIST
+close($fh);
+system("pkill qlmanage");
+system("launchctl load $plist");
+unlink $plist;

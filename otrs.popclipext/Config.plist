@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>^0[23]\d{7}$</string>
+			<key>Title</key>
+			<string>OTRS</string>
+			<key>URL</key>
+                        <string>http://otrs3.activestate.com/otrs/index.pl?Action=AgentTicketZoom;TicketNumber={popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup tickets in OTRS</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.otrs</string>
+	<key>Extension Name</key>
+	<string>OTRS</string>
+</dict>
+</plist>

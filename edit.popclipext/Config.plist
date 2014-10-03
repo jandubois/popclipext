@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Required Apps</key>
+	<array>
+		<string>com.apple.Terminal</string>
+	</array>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>^[^':;''`"?*^%@|&amp;&lt;&gt;(){}'\[\]\n]+$</string>
+			<key>Script Interpreter</key>
+			<string>/usr/bin/perl</string>
+			<key>Shell Script File</key>
+			<string>edit</string>
+			<key>Title</key>
+			<string>Edit</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Edit file</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.edit</string>
+	<key>Extension Name</key>
+	<string>Edit</string>
+</dict>
+</plist>

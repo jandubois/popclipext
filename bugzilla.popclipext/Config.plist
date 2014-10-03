@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+                        <!-- 80000 to 129999 -->
+			<string>^(1[012]|[89])\d{4}$</string>
+			<key>Title</key>
+			<string>Bugzilla</string>
+			<key>URL</key>
+			<string>http://bugs.activestate.com/show_bug.cgi?id={popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup bugs in Bugzilla</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.bugzilla</string>
+	<key>Extension Name</key>
+	<string>Bugzilla</string>
+</dict>
+</plist>

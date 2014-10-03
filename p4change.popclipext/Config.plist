@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+                        <!-- Ignore change 199999 (from 2005) and earlier -->
+                        <!-- Current change numbers in May 2014 are 298000+ -->
+			<string>^[23]\d{5}$</string>
+			<key>Script Interpreter</key>
+			<string>/usr/bin/perl</string>
+			<key>Shell Script File</key>
+			<string>p4change</string>
+			<key>Title</key>
+			<string>P4</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>P4 Change</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.p4change</string>
+	<key>Extension Name</key>
+	<string>P4 Change</string>
+</dict>
+</plist>

@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $file = shift // $ENV{POPCLIP_TEXT};
+
+if (my($user,$path) = $file =~ m,^~([^/]*)(/.*),) {
+    # Expand home directory names, e.g. ~/... or ~user/...
+    my $home = $user ? (getpwnam($user))[7] : (getpwuid($>))[7];
+    $file = $home . $path if defined $home;
+}
+elsif ($file !~ m,^/,) {
+    # Expand relative filenames
+
+    # Get tty device name for active shell window via AppleScript
+    my $tty = `osascript -e 'tell application "Terminal" to return tty of selected tab of front window'`;
+    chomp $tty;
+
+    # Get user name and default shell of process owner
+    my($user,$shell) = (getpwuid($>))[0,8];
+
+    # Strip path; we need just the command name, e.g. "bash" or "zsh"
+    $shell =~ s,.*/,,;
+
+    # Find PID of first shell that has STDIN opened to $tty
+    my $pid = `/usr/sbin/lsof -a -u $user -c $shell -d 0 -n | $^X -nae "exit(print \\\$F[1]) if \\\$F[-1] eq '$tty'"`;
+
+    # Get current directory for process $pid
+    # Everything from the first slash to the end of the line should be the dir; there are no other slashes.
+    # (don't use $F[-1] because it will be incomplete if the directory name contains whitespace)
+    my $cwd = `/usr/sbin/lsof -a -p $pid -d cwd -n | $^X -nae "m,(/.*), && print \\\$1 if \\\$F[1] == $pid"`;
+    $file = "$cwd/$file" if $cwd;
+}
+system(qq(qlmanage -p "$file")) if -f $file;
+#system(qq(osascript -e 'display notification "FILE is $file"'));

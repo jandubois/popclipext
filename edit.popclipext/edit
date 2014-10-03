@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my $file = shift // $ENV{POPCLIP_TEXT};
+
+# Expand home directory names, e.g. ~/... or ~user/...
+if (my($user,$path) = $file =~ m,^~([^/]*)(/.*),) {
+    my $home = $user ? (getpwnam($user))[7] : (getpwuid($>))[7];
+    $file = $home . $path if defined $home;
+}
+# Expand relative filenames
+elsif ($file !~ m,^/,) {
+
+    # Get tty device name for active shell window via AppleScript
+    my $tty = `osascript -e 'tell application "Terminal" to return tty of selected tab of front window'`;
+    chomp $tty;
+
+    # Get user name and default shell of process owner
+    my($user,$shell) = (getpwuid($>))[0,8];
+
+    # Strip path; we need just the command name, e.g. "bash" or "zsh"
+    $shell =~ s,.*/,,;
+
+    # Find PID of first shell that has STDIN opened to $tty
+    my $pid = `/usr/sbin/lsof -a -u $user -c $shell -d 0 -n | $^X -nae "exit(print \\\$F[1]) if \\\$F[-1] eq '$tty'"`;
+
+    # Get current directory for process $pid
+    # Everything from the first slash to the end of the line should be the dir; there are no other slashes.
+    # (don't use $F[-1] because it will be incomplete if the directory name contains whitespace)
+    my $cwd = `/usr/sbin/lsof -a -p $pid -d cwd -n | $^X -nae "m,(/.*), && print \\\$1 if \\\$F[1] == $pid"`;
+    $file = "$cwd/$file" if $cwd;
+}
+
+my %options = (
+          0 => "-t",            # none:     open with default text editor
+#    262144 => "-a Quicklook",  # Control   open with Quicklook (but Quicklook.app doesn't exist)
+     524288 => "",              # Command:  open with default app
+    1048576 => "-a Xcode",      # Option:   open with Xcode
+);
+my $options = $options{$ENV{POPCLIP_MODIFIER_FLAGS}};
+
+if (defined $options) {
+    system(qq(open $options "$file"));
+}
+elsif ($ENV{POPCLIP_MODIFIER_FLAGS} eq "262144") {
+    require File::Temp;
+    chomp($ENV{TMPDIR} = `getconf DARWIN_USER_TEMP_DIR`);
+    my($fh,$plist) = File::Temp::mkstemps("$ENV{TMPDIR}qlmanage.XXXXXXXX", ".plist");
+    print $fh <<PLIST;
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.jandubois.quicklook</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/bin/qlmanage</string>
+      <string>-p</string>
+      <string>$file</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>LaunchOnlyOnce</key>
+    <true/>
+  </dict>
+</plist>
+PLIST
+    close($fh);
+    system("pkill qlmanage");
+    system("launchctl load $plist");
+    unlink $plist;
+}

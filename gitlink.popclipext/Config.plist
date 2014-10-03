@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>(?s)^[0-9a-zA-Z]{7}([0-9a-zA-Z]{33})?$</string>
+			<key>Title</key>
+			<string>Gitlink</string>
+			<key>URL</key>
+			<string>http://gitlink.paas.activestate.com/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup in Gitlink</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclip.extension.gitlink</string>
+	<key>Extension Name</key>
+	<string>Gitlink</string>
+	<key>Required Software Version</key>
+	<integer>693</integer>
+</dict>
+</plist>

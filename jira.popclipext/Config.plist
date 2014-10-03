@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>^STO-\d+$</string>
+			<key>Title</key>
+			<string>Jira</string>
+			<key>URL</key>
+			<string>https://activestate.atlassian.net/browse/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup bugs in Jira</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.jira</string>
+	<key>Extension Name</key>
+	<string>Jira</string>
+</dict>
+</plist>
