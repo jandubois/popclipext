@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>^\d{8,9}$</string>
+			<key>Title</key>
+			<string>CF Runtime</string>
+			<key>URL</key>
+			<string>https://www.pivotaltracker.com/n/projects/966314/stories/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Public CF Runtime tracker</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.cfruntime</string>
+	<key>Extension Name</key>
+	<string>CF Runtime</string>
+</dict>
+</plist>
