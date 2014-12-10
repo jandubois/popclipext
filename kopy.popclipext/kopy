@@ -1,0 +1,2 @@
+curl -X POST -s -d "raw:$POPCLIP_TEXT" http://kopy.io/documents | awk -F '"' '{print "http://kopy.io/"$4}' | pbcopy
+open $(pbpaste)
