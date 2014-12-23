@@ -5,6 +5,8 @@
 	<key>Actions</key>
 	<array>
 		<dict>
+			<key>Regular Expression</key>
+			<string>\n</string>
 			<key>Shell Script File</key>
 			<string>kopy</string>
 			<key>Title</key>
