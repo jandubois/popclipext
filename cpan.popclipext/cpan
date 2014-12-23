@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+if (($ENV{POPCLIP_MODIFIER_FLAGS} || 0) == 262144) { # Control
+    system(qq(open "http://code.activestate.com/ppm/search:$ENV{POPCLIP_TEXT}/?redirect=1"));
+}
+elsif (($ENV{POPCLIP_MODIFIER_FLAGS} || 0) == 524288) { # Command
+    system(qq(open "https://metacpan.org/search?q=$ENV{POPCLIP_TEXT}&size=20"));
+}
+else {
+    system(qq(open "http://search.cpan.org/search?query=$ENV{POPCLIP_TEXT}&mode=all"));
+}
