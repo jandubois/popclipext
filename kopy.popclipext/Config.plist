@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>Regular Expression</key>
-			<string>\n</string>
+			<string>(?s)^.*\n.*$</string>
 			<key>Shell Script File</key>
 			<string>kopy</string>
 			<key>Title</key>
