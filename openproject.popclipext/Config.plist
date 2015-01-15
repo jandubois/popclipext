@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+                        <!-- 300000 to 399999 -->
+			<string>^3\d{5}$</string>
+			<key>Title</key>
+			<string>OpenPrj</string>
+			<key>URL</key>
+			<string>http://openproject.activestate.com/work_packages/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup work package in OpenProject</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.openproject</string>
+	<key>Extension Name</key>
+	<string>OpenProject</string>
+</dict>
+</plist>
