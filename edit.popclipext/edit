@@ -13,7 +13,13 @@ if (my($user,$path) = $file =~ m,^~([^/]*)(/.*),) {
 elsif ($file !~ m,^/,) {
 
     # Get tty device name for active shell window via AppleScript
-    my $tty = `osascript -e 'tell application "Terminal" to return tty of selected tab of front window'`;
+    my $tty;
+    if ($ENV{POPCLIP_APP_NAME} eq "Terminal") {
+        $tty = `osascript -e 'tell application "Terminal" to return tty of selected tab of front window'`;
+    }
+    elsif ($ENV{POPCLIP_APP_NAME} eq "iTerm") {
+        $tty = `osascript -e 'tell application "iTerm" to return tty of current session of current terminal'`;
+    }
     chomp $tty;
 
     # Get user name and default shell of process owner

@@ -5,6 +5,7 @@
 	<key>Required Apps</key>
 	<array>
 		<string>com.apple.Terminal</string>
+		<string>com.googlecode.iterm2</string>
 	</array>
 	<key>Actions</key>
 	<array>
