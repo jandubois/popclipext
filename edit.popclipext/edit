@@ -41,7 +41,22 @@ elsif ($file !~ m,^/,) {
     # Everything from the first slash to the end of the line should be the dir; there are no other slashes.
     # (don't use $F[-1] because it will be incomplete if the directory name contains whitespace)
     my $cwd = `/usr/sbin/lsof -a -p $pid -d cwd -n | $^X -nae "m,(/.*), && print \\\$1 if \\\$F[1] == $pid"`;
-    $file = "$cwd/$file" if $cwd;
+    if ($cwd) {
+        my($rel) = $file =~ m,^[ab]/(.*),;
+        $file = "$cwd/$file";
+        # If $file doesn't exist, then this may be a filename from `git diff` output.
+        if (!-f $file && $rel) {
+            # Need to locate $rel relative to the git working directory, not the current directory.
+            while ($cwd) {
+                if (-e "$cwd/.git" && -f "$cwd/$rel") {
+                    $file = "$cwd/$rel";
+                    last;
+                }
+                # Move to parent directory: $cwd = "$cwd/.."
+                last unless $cwd =~ s,/[^/]+$,,;
+            }
+        }
+    }
 }
 
 my %options = (
