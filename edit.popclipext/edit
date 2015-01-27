@@ -30,7 +30,7 @@ elsif ($file !~ m,^/,) {
     open(my $fh, "/usr/sbin/lsof -a -R -u $user -d 0 -n |") or die;
     my %child;
     while (<$fh>) {
-        next unless /ttys005/;
+        next unless /$tty/;
         my($pid,$ppid) = / (\d+) +(\d+)/ or next;
         $child{$ppid} = $pid;
     }
