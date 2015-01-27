@@ -23,13 +23,19 @@ elsif ($file !~ m,^/,) {
     chomp $tty;
 
     # Get user name and default shell of process owner
-    my($user,$shell) = (getpwuid($>))[0,8];
+    my $user = (getpwuid($>))[0];
 
-    # Strip path; we need just the command name, e.g. "bash" or "zsh"
-    $shell =~ s,.*/,,;
-
-    # Find PID of first shell that has STDIN opened to $tty
-    my $pid = `/usr/sbin/lsof -a -u $user -c $shell -d 0 -n | $^X -nae "exit(print \\\$F[1]) if \\\$F[-1] eq '$tty'"`;
+    # Find PID of process that has no children and has an open handle to $tty
+    # Typically this will be the top-most interactive shell
+    open(my $fh, "/usr/sbin/lsof -a -R -u $user -d 0 -n |") or die;
+    my %child;
+    while (<$fh>) {
+        next unless /ttys005/;
+        my($pid,$ppid) = / (\d+) +(\d+)/ or next;
+        $child{$ppid} = $pid;
+    }
+    close($fh);
+    my($pid) = grep !exists $child{$_}, values %child;
 
     # Get current directory for process $pid
     # Everything from the first slash to the end of the line should be the dir; there are no other slashes.
