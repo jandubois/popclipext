@@ -22,7 +22,7 @@ elsif ($file !~ m,^/,) {
     }
     chomp $tty;
 
-    # Get user name and default shell of process owner
+    # Get user name of process owner
     my $user = (getpwuid($>))[0];
 
     # Find PID of process that has no children and has an open handle to $tty
