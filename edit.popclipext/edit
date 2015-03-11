@@ -8,6 +8,15 @@ $ENV{POPCLIP_MODIFIER_FLAGS} //= "0";
 
 my $file = shift // $ENV{POPCLIP_TEXT};
 
+my($sec,$min,$hour,$day,$mon,$year) = localtime;
+my $time = sprintf "%d-%02d-%02d %02d:%02d:%02d", $year+1900, $mon+1, $day, $hour, $min, $sec;
+
+# Append to log file (only if it already exists)
+my $log_file = (getpwuid($>))[7] . "/Library/Logs/PopClip/edit.log";
+$log_file = "/dev/null" unless -f $log_file;
+open(my $log, ">>", "$log_file");
+print $log qq[$time edit "$file"\n];
+
 # Expand home directory names, e.g. ~/... or ~user/...
 if (my($user,$path) = $file =~ m,^~([^/]*)(/.*),) {
     my $home = $user ? (getpwnam($user))[7] : (getpwuid($>))[7];
@@ -25,6 +34,7 @@ elsif ($file !~ m,^/,) {
         $tty = `osascript -e 'tell application "iTerm" to return tty of current session of current terminal'`;
     }
     chomp $tty;
+    print $log qq[$time   App is '$ENV{POPCLIP_APP_NAME}' Tty is '$tty'\n];
 
     # Get user name of process owner
     my $user = (getpwuid($>))[0];
@@ -51,7 +61,11 @@ elsif ($file !~ m,^/,) {
     # Everything from the first slash to the end of the line should be the dir; there are no other slashes.
     # (don't use $F[-1] because it will be incomplete if the directory name contains whitespace)
     my $cwd = `/usr/sbin/lsof -a -p $pid -d cwd -n | $^X -nae "m,(/.*), && print \\\$1 if \\\$F[1] == $pid"`;
-    if ($cwd) {
+    unless ($cwd) {
+        print $log qq[$time   Cannot determine cwd for user '$user' and pid '$pid'!\n];
+    }
+    else {
+        print $log qq[$time   Cwd for user '$user' and pid '$pid' is '$cwd'\n];
         my($rel) = $file =~ m,^[ab]/(.*),;
         $file = "$cwd/$file";
         # If $file doesn't exist, then this may be a filename from `git diff` output.
@@ -59,6 +73,7 @@ elsif ($file !~ m,^/,) {
             # Need to locate $rel relative to the git working directory, not the current directory.
             while ($cwd) {
                 if (-e "$cwd/.git" && -f "$cwd/$rel") {
+                    print $log qq[$time   Found "$cwd/.git"\n];
                     $file = "$cwd/$rel";
                     last;
                 }
@@ -78,6 +93,7 @@ my %options = (
 my $options = $options{$ENV{POPCLIP_MODIFIER_FLAGS}};
 
 if (defined $options) {
+    print $log qq[$time   \$ open $options "$file"\n];
     system(qq(open $options "$file"));
 }
 elsif ($ENV{POPCLIP_MODIFIER_FLAGS} eq "262144") {
@@ -105,6 +121,7 @@ elsif ($ENV{POPCLIP_MODIFIER_FLAGS} eq "262144") {
 </plist>
 PLIST
     close($fh);
+    print $log qq[$time   \$ qlmanage -p "$file" (via launchd)\n];
     system("pkill qlmanage");
     system("launchctl load $plist");
     unlink $plist;
