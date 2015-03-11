@@ -2,6 +2,10 @@
 use strict;
 use warnings;
 
+# Set default values for commandline debugging
+$ENV{POPCLIP_APP_NAME} //= "iTerm";
+$ENV{POPCLIP_MODIFIER_FLAGS} //= "0";
+
 my $file = shift // $ENV{POPCLIP_TEXT};
 
 # Expand home directory names, e.g. ~/... or ~user/...
@@ -35,7 +39,13 @@ elsif ($file !~ m,^/,) {
         $child{$ppid} = $pid;
     }
     close($fh);
+
     my($pid) = grep !exists $child{$_}, values %child;
+
+    # If this Perl script is running in the same tty, then use the parent of the script.
+    # This should only happen during commandline debugging of the script itself.
+    my($parent) = grep $child{$_} == $$, values %child;
+    $pid = $parent if defined $parent;
 
     # Get current directory for process $pid
     # Everything from the first slash to the end of the line should be the dir; there are no other slashes.
