@@ -1,2 +1,5 @@
-curl -X POST -s -d "raw:$POPCLIP_TEXT" http://kopy.io/documents | awk -F '"' '{printf "http://kopy.io/%s", $4}' | pbcopy
+# Keep for 1 Month
+KEEP=2592000
+DATA=$(perl -MURI::Escape -e 'print uri_escape $ENV{POPCLIP_TEXT}')
+curl -X POST -s -d "data=$DATA&keep=$KEEP" http://kopy.io/documents | awk -F '"' '{printf "http://kopy.io/%s", $4}' | pbcopy
 open $(pbpaste)
