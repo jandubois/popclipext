@@ -7,7 +7,7 @@
 		<dict>
 			<key>Regular Expression</key>
                         <!-- 300000 to 399999 -->
-			<string>^3\d{5}</string>
+			<string>\b3\d{5}\b</string>
 			<key>Title</key>
 			<string>OpenPrj</string>
 			<key>URL</key>
