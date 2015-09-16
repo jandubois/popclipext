@@ -33,6 +33,9 @@ elsif ($file !~ m,^/,) {
     elsif ($ENV{POPCLIP_APP_NAME} eq "iTerm") {
         $tty = `osascript -e 'tell application "iTerm" to return tty of current session of current terminal'`;
     }
+    elsif ($ENV{POPCLIP_APP_NAME} eq "iTerm2") {
+        $tty = `osascript -e 'tell application "iTerm" to return tty of current session of current window'`;
+    }
     chomp $tty;
     print $log qq[$time   App is '$ENV{POPCLIP_APP_NAME}' Tty is '$tty'\n];
 
