@@ -11,7 +11,7 @@
 			<key>Title</key>
 			<string>OpenPrj</string>
 			<key>URL</key>
-			<string>http://openproject.activestate.com/work_packages/{popclip text}</string>
+			<string>http://openproject.stackato.com/work_packages/{popclip text}</string>
 		</dict>
 	</array>
 	<key>Extension Description</key>
