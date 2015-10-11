@@ -6,12 +6,26 @@
 	<array>
 		<dict>
 			<key>Regular Expression</key>
-                        <!-- 300000 to 399999 -->
+			<!-- 300000 to 399999 -->
 			<string>\b3\d{5}\b</string>
 			<key>Title</key>
 			<string>OpenPrj</string>
 			<key>URL</key>
-			<string>http://openproject.stackato.com/work_packages/{popclip text}</string>
+			<string>http://{popclip option url}/work_packages/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Option Identifier</key>
+			<string>url</string>
+			<key>Option Label</key>
+			<dict>
+				<key>en</key>
+				<string>OpenProject URL</string>
+			</dict>
+			<key>Option Type</key>
+			<string>string</string>
 		</dict>
 	</array>
 	<key>Extension Description</key>
