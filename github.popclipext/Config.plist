@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>^[0-9a-zA-Z]{7,40}\b</string>
+			<key>Title</key>
+			<string>Github</string>
+			<key>URL</key>
+			<string>https://github.com/hpcloud/{popclip option url}/commit/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Option Identifier</key>
+			<string>url</string>
+			<key>Option Label</key>
+			<dict>
+				<key>en</key>
+				<string>Github repo</string>
+			</dict>
+			<key>Option Type</key>
+			<string>string</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup commits in Github repo</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.github</string>
+	<key>Extension Name</key>
+	<string>Github</string>
+</dict>
+</plist>
