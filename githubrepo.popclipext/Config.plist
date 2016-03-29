@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>\b[-a-zA-Z]{3,}/[a-zA-Z]{3,}\b</string>
+			<key>Shell Script File</key>
+			<string>githubrepo</string>
+			<key>Title</key>
+			<string>GH Repo</string>
+			<!-- <key>URL</key> <string>https://github.com/{popclip text}</string> -->
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Show repo on Github</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.githubrepo</string>
+	<key>Extension Name</key>
+	<string>Github Repo</string>
+</dict>
+</plist>
