@@ -6,18 +6,18 @@
 	<array>
 		<dict>
 			<key>Regular Expression</key>
-			<string>^\d{8,9}$</string>
+			<string>\b\d{8,9}\b</string>
 			<key>Title</key>
-			<string>CF CLI</string>
+			<string>CF</string>
 			<key>URL</key>
-			<string>https://www.pivotaltracker.com/n/projects/892938/stories/{popclip text}</string>
+			<string>https://www.pivotaltracker.com/story/show/{popclip text}</string>
 		</dict>
 	</array>
 	<key>Extension Description</key>
-	<string>Public CF CLI tracker</string>
+	<string>Cloud Foundry Tracker</string>
 	<key>Extension Identifier</key>
-	<string>com.jandubois.popclipext.cfcli</string>
+	<string>com.jandubois.popclipext.cf</string>
 	<key>Extension Name</key>
-	<string>CF CLI</string>
+	<string>Cloud Foundry</string>
 </dict>
 </plist>
