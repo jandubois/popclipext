@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>\b[A-Z-a-z0-9]{8}\b</string>
+			<key>Title</key>
+			<string>Trello</string>
+			<key>Image File</key>
+			<string>trello.png</string>
+			<key>URL</key>
+			<string>https://trello.com/c/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup Trello cards</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.trello</string>
+	<key>Extension Name</key>
+	<string>Trello</string>
+        <key>Extension Image File</key>
+        <string>trello.png</string>
+</dict>
+</plist>
