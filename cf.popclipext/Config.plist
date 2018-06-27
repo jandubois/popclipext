@@ -9,6 +9,8 @@
 			<string>\b\d{8,9}\b</string>
 			<key>Title</key>
 			<string>CF</string>
+			<key>Image File</key>
+			<string>cf.png</string>
 			<key>URL</key>
 			<string>https://www.pivotaltracker.com/story/show/{popclip text}</string>
 		</dict>
@@ -19,5 +21,7 @@
 	<string>com.jandubois.popclipext.cf</string>
 	<key>Extension Name</key>
 	<string>Cloud Foundry</string>
+        <key>Extension Image File</key>
+	<string>cf.png</string>
 </dict>
 </plist>
