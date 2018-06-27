@@ -6,11 +6,13 @@
 	<array>
 		<dict>
 			<key>Regular Expression</key>
-			<string>^[0-9a-zA-Z]{7,40}\b</string>
+			<string>^[0-9a-fA-F]{7,40}\b</string>
 			<key>Title</key>
 			<string>Github</string>
+			<key>Image File</key>
+			<string>GitHub-Mark-120px-plus.png</string>
 			<key>URL</key>
-			<string>https://github.com/hpcloud/{popclip option url}/commit/{popclip text}</string>
+			<string>https://github.com/SUSE/{popclip option url}/commit/{popclip text}</string>
 		</dict>
 	</array>
 	<key>Options</key>
@@ -33,5 +35,7 @@
 	<string>com.jandubois.popclipext.github</string>
 	<key>Extension Name</key>
 	<string>Github</string>
+        <key>Extension Image File</key>
+        <string>GitHub-Mark-120px-plus.png</string>
 </dict>
 </plist>
