@@ -9,6 +9,8 @@
 			<string>\b[A-Z]{3,}-\d+</string>
 			<key>Title</key>
 			<string>Jira</string>
+                        <key>Image File</key>
+                        <string>jira.png</string>
 			<key>URL</key>
 			<string>https://{popclip option url}/browse/{popclip text}</string>
 		</dict>
