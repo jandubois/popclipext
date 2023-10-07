@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>Regular Expression</key>
+			<string>^\d{3,4}$</string>
+			<key>Title</key>
+			<string>Rancher Desktop</string>
+			<key>URL</key>
+			<string>https://github.com/rancher-sandbox/rancher-desktop/issues/{popclip text}</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Lookup Rancher Desktop issues on Github</string>
+	<key>Extension Identifier</key>
+	<string>com.jandubois.popclipext.rancher-desktop</string>
+	<key>Extension Name</key>
+	<string>Rancher Desktop</string>
+        <key>Extension Image File</key>
+        <string>logo.png</string>
+</dict>
+</plist>
